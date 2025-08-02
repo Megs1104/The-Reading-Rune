@@ -38,3 +38,7 @@ yarn-error.*
 *.tsbuildinfo
 
 .history
+
+package-lock.json
+yarn.lock
+supabase.ts

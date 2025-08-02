@@ -1,20 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { AuthProvider } from "./src/contexts/AuthContext";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SignInScreen } from "./src/screens/auth/SignInScreen";
+import { SignUpScreen } from "./src/screens/auth/SignUpScreen";
+import { HomeScreen } from "./src/screens/HomeScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AuthProvider>
+        <Stack.Navigator initialRouteName="Sign In">
+          <Stack.Screen
+            name="Sign In"
+            component={SignInScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Sign Up" component={SignUpScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: "The Reading Rune", headerBackTitle: "Back" }}
+          />
+        </Stack.Navigator>
+      </AuthProvider>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

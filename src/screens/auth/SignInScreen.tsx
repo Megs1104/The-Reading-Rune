@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { CustomText } from "../../components/CustomText";
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { RootStackParamList } from "../../navigation/types";
+import SignInForm from "../../components/SignInForm";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 type SignInInput = {
@@ -21,49 +22,11 @@ type SignInInput = {
 };
 
 export const SignInScreen = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { signIn } = useAuth();
   const navigation = useNavigation();
 
-  const handleSignIn = async ({ email, password }: SignInInput) => {
-    setLoading(true);
-    try {
-      await signIn({ email, password });
-    } catch (error: any) {
-      setError(error.message || "Sign in failed, plesae try again later.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleInputChange = async (
-    field: "email" | "password",
-    value: string
-  ) => {
-    if (field === "email") {
-      setEmail(value.trim());
-
-      if (!value.includes("@")) {
-        setError("Please enter a valid e-mail address.");
-        return;
-      } else {
-        setError(null);
-      }
-    }
-
-    if (field === "password") {
-      setPassword(value);
-      if (value.length < 8) {
-        setError("Password must be a least 8 characters.");
-      } else {
-        setError(null);
-      }
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -76,35 +39,8 @@ export const SignInScreen = () => {
         width={200}
         borderRadius={40}
       />
-      <TextInput
-        placeholder="E-mail"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        style={styles.input}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        style={styles.input}
-      />
-
-      {error ? (
-        <CustomText style={styles.buttonText}>{error}</CustomText>
-      ) : null}
-
-      {loading ? (
-        <ActivityIndicator size="small" color="#000" />
-      ) : (
-        <Pressable
-          style={styles.button}
-          onPress={() => handleSignIn({ email, password })}
-        >
-          <CustomText style={styles.buttonText}>Sign In</CustomText>
-        </Pressable>
-      )}
+    
+      <SignInForm></SignInForm>
 
       <CustomText>or</CustomText>
       <Pressable
@@ -138,7 +74,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    padding: 24,
     alignItems: "center",
     backgroundColor: "#5f8aa4",
   },

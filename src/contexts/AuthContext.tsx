@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext, useState, createContext, ReactNode } from "react";
-import { supabase } from "../../supabase";
+import { supabase } from "../../supabase"
 
 type AuthContextType = {
   userId: string | null;

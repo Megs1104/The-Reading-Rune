@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import {
@@ -11,10 +10,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CustomText } from "../../components/CustomText";
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { RootStackParamList } from "../../navigation/types";
 
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 type SignInInput = {
   email: string;
   password: string;
+  navigation: NavigationProp;
 };
 
 export const SignInScreen = () => {

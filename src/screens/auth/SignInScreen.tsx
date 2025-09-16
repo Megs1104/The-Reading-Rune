@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { CustomText } from "../../components/CustomText";
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import { RootStackParamList } from "../../navigation/types";
-import SignInForm from "../../components/SignInForm";
+import SignInForm from "../../components/auth/SignInForm";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>
 type SignInInput = {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#5f8aa4",
   },
   input: {
-    height: 20,
+    height: 60,
     fontSize: 18,
     padding: 14,
     borderColor: "#2d1d46",
